@@ -1,0 +1,27 @@
+﻿
+@page "/edit/{id:int}"
+
+@inject IBookRepository Repository
+@inject NavigationManager Navigation
+
+<PageTitle>
+    Edit Book
+</PageTitle>
+
+    <div class="row justify-content-center">
+        <div class="col-6">
+           <BookForm IsEditMode="true" BookId="@Id" OnValitBookSumbit="EditBook"/>
+        </div>
+    </div>
+
+@code {
+
+    [Parameter]
+    public int Id{ get; set; }
+
+    public async Task EditBook(Book book)
+    {
+            await Repository.UpdateAsync(book);
+            Navigation.NavigateTo("/");
+    }
+}
